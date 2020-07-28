@@ -33,6 +33,7 @@ h3 {
   height: 170px;
   width: 170px;
   border-radius: 10rem;
+  cursor: pointer;
 }
 
 .red {
@@ -62,8 +63,4 @@ h3 {
 .wrong {
   background-color: red;
   color: #ffffff;
-}
-
-.highlight {
-  border: 1px solid #ffffff;
 }

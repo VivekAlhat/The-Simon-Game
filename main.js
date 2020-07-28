@@ -5,7 +5,9 @@ var user = [];
 var colors = ["red", "green", "blue", "yellow"];
 
 function nextPattern() {
+  user = [];
   level++;
+  $("h3").text("level " + level);
   var random = Math.floor(Math.random() * 4);
   var chosenColor = colors[random];
   game.push(chosenColor);
@@ -13,6 +15,14 @@ function nextPattern() {
   animateColor(chosenColor);
   //   console.log(random);
 }
+
+$(".block").on("click", function () {
+  var btn = $(this).attr("id");
+  user.push(btn);
+  playSound(btn);
+  animateColor(btn);
+  checkResults(user.length - 1);
+});
 
 function playSound(color) {
   var gameSound = new Audio("audio/" + color + ".mp3");
@@ -23,17 +33,11 @@ function animateColor(color) {
   $("." + color)
     .fadeOut(100)
     .fadeIn(100);
-
-  $("." + color).addClass("highlight");
-  setTimeout(function () {
-    $("." + color).removeClass("highlight");
-  }, 300);
 }
 
 $(document).on("keydown", function () {
   if (!hasStarted) {
     $("h3").text("Level " + level);
-    level = 0;
     hasStarted = true;
     nextPattern();
   }
@@ -41,10 +45,22 @@ $(document).on("keydown", function () {
 
 function checkResults(level) {
   if (user[level] === game[level]) {
-    console.log("Success");
+    if (user.length === game.length) {
+      setTimeout(function () {
+        nextPattern();
+      }, 1000);
+    }
+    // console.log("Success");
   } else {
+    var wrong = new Audio("audio/wrong.mp3");
+    wrong.play();
+    $("h3").text("Game Over! Press any key to restart");
+    $("body").addClass("wrong");
+    setTimeout(function () {
+      $("body").removeClass("wrong");
+    }, 200);
     reset();
-    console.log("Failure");
+    // console.log("Failure");
   }
 }
 
