@@ -7,7 +7,7 @@ var colors = ["red", "green", "blue", "yellow"];
 function nextPattern() {
   user = [];
   level++;
-  $("h3").text("level " + level);
+  $("h2").text("level " + level);
   var random = Math.floor(Math.random() * 4);
   var chosenColor = colors[random];
   game.push(chosenColor);
@@ -37,7 +37,7 @@ function animateColor(color) {
 
 $(document).on("keydown", function () {
   if (!hasStarted) {
-    $("h3").text("Level " + level);
+    $("h2").text("Level " + level);
     hasStarted = true;
     nextPattern();
   }
@@ -54,7 +54,7 @@ function checkResults(level) {
   } else {
     var wrong = new Audio("audio/wrong.mp3");
     wrong.play();
-    $("h3").text("Game Over! Press any key to restart");
+    $("h2").text("Game Over! Press any key to restart");
     $("body").addClass("wrong");
     setTimeout(function () {
       $("body").removeClass("wrong");
